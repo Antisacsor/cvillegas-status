@@ -50,11 +50,8 @@ sites:
     maxResponseTime: 10000
 
 status-website:
-  # Mientras no exista el DNS de status.carminavillegas.com se publica en
-  # https://antisacsor.github.io/cvillegas-status/ . Para el dominio propio: quitar baseUrl y
-  # descomentar cname.
-  # cname: status.carminavillegas.com
-  baseUrl: /cvillegas-status
+  # DNS en Site5 (cPanel → Zone Editor): CNAME status → antisacsor.github.io
+  cname: status.carminavillegas.com
   name: Carmiña Villegas
   logoUrl: https://cvillegas.vteximg.com.br/arquivos/favicon-96x96.png
   favicon: https://cvillegas.vteximg.com.br/arquivos/favicon-96x96.png
