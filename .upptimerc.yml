@@ -49,11 +49,6 @@ sites:
     __dangerous__body_down_if_text_missing: '"captcha":"ok"'
     maxResponseTime: 10000
 
-  - name: Prueba de alerta (temporal)
-    slug: prueba-alerta
-    url: https://middle-end.carminavillegas.com/health
-    __dangerous__body_down_if_text_missing: 'texto-que-no-existe'
-
 status-website:
   # Mientras no exista el DNS de status.carminavillegas.com se publica en
   # https://antisacsor.github.io/cvillegas-status/ . Para el dominio propio: quitar baseUrl y
