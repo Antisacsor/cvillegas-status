@@ -1,0 +1,28 @@
+{
+  "title": "Estado de Carmiña Villegas",
+  "brand": "Carmiña Villegas",
+  "website": "https://www.carminavillegas.com",
+  "timezone": "America/Bogota",
+  "historyDays": 90,
+  "incidentDays": 30,
+  "components": [
+    {
+      "id": "tienda",
+      "name": "Tienda online",
+      "description": "Navegación, catálogo y compras en www.carminavillegas.com",
+      "monitors": ["5201133"]
+    },
+    {
+      "id": "formularios",
+      "name": "Formularios",
+      "description": "Contacto, línea corporativa, PQR, newsletter y lista de bodas",
+      "monitors": ["5201129", "5201149", "5201150"]
+    },
+    {
+      "id": "wishlist",
+      "name": "Lista de deseos",
+      "description": "Guardar y consultar productos favoritos",
+      "monitors": ["5201130", "5201149"]
+    }
+  ]
+}

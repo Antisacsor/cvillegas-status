@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estado de Carmiña Villegas</title>
+<meta name="description" content="Estado en tiempo real de la tienda online y los servicios de Carmiña Villegas.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2316a34a'/%3E%3Cpath d='M10 16.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #ffffff; --surface: #ffffff; --border: #e5e7eb; --text: #111827; --muted: #6b7280;
+    --ok: #16a34a; --ok-soft: #dcfce7; --warn: #d97706; --warn-soft: #fef3c7;
+    --bad: #dc2626; --bad-soft: #fee2e2; --none: #e5e7eb; --info: #2563eb; --info-soft: #dbeafe;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 1px 8px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0d12; --surface: #12151c; --border: #252a35; --text: #e5e7eb; --muted: #9ca3af;
+      --ok: #22c55e; --ok-soft: #14532d; --warn: #f59e0b; --warn-soft: #451a03;
+      --bad: #ef4444; --bad-soft: #450a0a; --none: #2a2f3a; --info: #60a5fa; --info-soft: #172554;
+      --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0d12; --surface: #12151c; --border: #252a35; --text: #e5e7eb; --muted: #9ca3af;
+    --ok: #22c55e; --ok-soft: #14532d; --warn: #f59e0b; --warn-soft: #451a03;
+    --bad: #ef4444; --bad-soft: #450a0a; --none: #2a2f3a; --info: #60a5fa; --info-soft: #172554;
+    --shadow: none;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0; }
+  .brand { font-weight: 650; letter-spacing: .01em; color: var(--text); text-decoration: none; font-size: 16px; }
+  .btn {
+    display: inline-block; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); text-decoration: none; font-size: 14px; background: var(--surface); white-space: nowrap;
+  }
+  .btn:hover { border-color: var(--muted); }
+  .hero { text-align: center; padding: 40px 0 28px; }
+  .hero .icon { width: 44px; height: 44px; border-radius: 50%; display: inline-grid; place-items: center; margin-bottom: 14px; }
+  .hero h1 { margin: 0 0 6px; font-size: clamp(22px, 5vw, 30px); line-height: 1.2; font-weight: 700; }
+  .hero p { margin: 0; color: var(--muted); font-size: 13px; }
+  .stale { margin: 12px auto 0; max-width: 520px; padding: 8px 12px; border-radius: 8px; background: var(--warn-soft); color: var(--text); font-size: 13px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+  .card-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .comp { padding: 16px 18px; }
+  .comp + .comp { border-top: 1px solid var(--border); }
+  .comp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .comp-name { display: flex; align-items: center; gap: 8px; font-weight: 600; min-width: 0; }
+  .comp-desc { color: var(--muted); font-size: 13px; margin: 2px 0 0 22px; }
+  .avail { font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; flex: none; display: inline-grid; place-items: center; }
+  .bars { display: flex; gap: 2px; height: 34px; margin: 12px 0 6px; }
+  .bar { flex: 1; min-width: 2px; border-radius: 2px; background: var(--none); border: 0; padding: 0; cursor: default; position: relative; }
+  .bar:hover, .bar:focus-visible { opacity: .75; outline: none; }
+  .bars-foot { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+  .tip {
+    position: fixed; z-index: 10; pointer-events: none; background: var(--text); color: var(--bg);
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; line-height: 1.4; max-width: 240px; transform: translate(-50%, calc(-100% - 10px));
+  }
+  h2 { font-size: 16px; margin: 36px 0 12px; }
+  .inc { padding: 14px 18px; }
+  .inc + .inc { border-top: 1px solid var(--border); }
+  .inc-title { font-weight: 600; }
+  .inc-meta { color: var(--muted); font-size: 13px; }
+  .empty { padding: 18px; color: var(--muted); font-size: 14px; text-align: center; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 40px 0 32px; }
+  footer a { color: inherit; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skeleton { height: 160px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" id="brand" href="./">Carmiña Villegas</a>
+    <a class="btn" id="shop" href="https://www.carminavillegas.com" rel="noopener">Ir a la tienda</a>
+  </header>
+
+  <section class="hero" aria-live="polite">
+    <div class="icon" id="hero-icon" aria-hidden="true"></div>
+    <h1 id="headline">Cargando estado…</h1>
+    <p id="updated"></p>
+    <div class="stale" id="stale" hidden></div>
+  </section>
+
+  <section class="card" aria-labelledby="svc-title">
+    <div class="card-head">
+      <span id="svc-title">Estado de los servicios</span>
+      <span class="pill" id="overall-pill"></span>
+    </div>
+    <div id="components"><div class="skeleton"></div></div>
+  </section>
+
+  <h2>Incidentes recientes</h2>
+  <section class="card" id="incidents"><div class="empty">Cargando…</div></section>
+
+  <footer>
+    Revisamos cada servicio cada 3 minutos desde varias regiones del mundo.<br>
+    Monitoreo con <a href="https://betterstack.com" rel="noopener">Better Stack</a>.
+  </footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+(() => {
+  const REFRESH_MS = 60_000;
+  const STALE_MS = 20 * 60_000;
+
+  const STATE = {
+    operational: { label: 'Operativo', color: 'ok' },
+    recovering: { label: 'Recuperándose', color: 'warn' },
+    maintenance: { label: 'Mantenimiento', color: 'info' },
+    down: { label: 'Interrupción', color: 'bad' },
+    unknown: { label: 'Sin datos', color: 'none' },
+  };
+  const OVERALL = {
+    operational: { title: 'Todos los servicios están en línea', pill: 'Operacional', color: 'ok' },
+    recovering: { title: 'Los servicios se están recuperando', pill: 'Recuperándose', color: 'warn' },
+    maintenance: { title: 'Estamos en mantenimiento', pill: 'Mantenimiento', color: 'info' },
+    partial_outage: { title: 'Algunos servicios presentan problemas', pill: 'Interrupción parcial', color: 'warn' },
+    major_outage: { title: 'Los servicios no están disponibles', pill: 'Interrupción', color: 'bad' },
+    unknown: { title: 'Estado no disponible', pill: 'Sin datos', color: 'none' },
+  };
+  const ICONS = {
+    ok: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    warn: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 7v6"/><path d="M12 17h.01"/></svg>',
+    bad: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>',
+    info: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg>',
+    none: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M8 12h8"/></svg>',
+  };
+  const mini = (color) => (ICONS[color] || ICONS.none).replace(/width="22" height="22"/, 'width="10" height="10"');
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmtPct = (v) => v === null || v === undefined ? '—' : (v >= 99.995 ? '100' : v.toFixed(2).replace('.', ',')) + '%';
+
+  let tz = 'America/Bogota';
+  const fmtDateTime = (iso) => new Intl.DateTimeFormat('es-CO', { timeZone: tz, day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZoneName: 'short' }).format(new Date(iso));
+  const fmtDay = (day) => new Intl.DateTimeFormat('es-CO', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(day + 'T00:00:00Z'));
+  const fmtDuration = (s) => {
+    if (s === null || s === undefined) return 'en curso';
+    if (s < 60) return 'menos de 1 min';
+    const m = Math.round(s / 60);
+    if (m < 60) return `${m} min`;
+    const h = Math.floor(m / 60), r = m % 60;
+    return r ? `${h} h ${r} min` : `${h} h`;
+  };
+  const barColor = (v) => v === null || v === undefined ? 'var(--none)' : v >= 99.95 ? 'var(--ok)' : v >= 99 ? 'var(--warn)' : 'var(--bad)';
+  const textColor = (c) => c === 'none' ? 'var(--muted)' : `var(--${c})`;
+  const visibleDays = () => (window.innerWidth < 600 ? 30 : 90);
+
+  let last = null;
+
+  function render(data) {
+    last = data;
+    tz = data.timezone || tz;
+    document.title = data.title || document.title;
+    if (data.brand) $('brand').textContent = data.brand;
+    if (data.website) $('shop').href = data.website;
+
+    const o = OVERALL[data.overall] || OVERALL.unknown;
+    const icon = $('hero-icon');
+    icon.innerHTML = ICONS[o.color];
+    icon.style.background = o.color === 'none' ? 'var(--muted)' : `var(--${o.color})`;
+    $('headline').textContent = o.title;
+    $('updated').textContent = 'Última actualización: ' + fmtDateTime(data.generatedAt);
+    const pill = $('overall-pill');
+    pill.textContent = o.pill;
+    pill.style.background = `var(--${o.color === 'none' ? 'none' : o.color + '-soft'})`;
+    pill.style.color = textColor(o.color);
+
+    const age = Date.now() - Date.parse(data.generatedAt);
+    const stale = $('stale');
+    stale.hidden = !(age > STALE_MS);
+    if (!stale.hidden) stale.textContent = `Los datos tienen ${Math.round(age / 60000)} minutos. Puede que no reflejen el estado actual.`;
+
+    const n = visibleDays();
+    $('components').innerHTML = data.components.map((c, ci) => {
+      const s = STATE[c.state] || STATE.unknown;
+      const hist = c.history.slice(-n);
+      const bars = hist.map((h, hi) =>
+        `<button class="bar" type="button" style="background:${barColor(h.availability)}" data-c="${ci}" data-h="${c.history.length - hist.length + hi}" aria-label="${esc(fmtDay(h.day))}: ${h.availability === null ? 'sin datos' : fmtPct(h.availability) + ' disponible'}"></button>`).join('');
+      return `<div class="comp">
+        <div class="comp-row">
+          <span class="comp-name"><span class="dot" style="background:${s.color === 'none' ? 'var(--muted)' : `var(--${s.color})`}" aria-hidden="true">${mini(s.color)}</span>${esc(c.name)}<span class="sr">: ${s.label}</span></span>
+          <span class="avail" style="color:${textColor(s.color === 'ok' ? 'ok' : s.color)}">${c.state === 'operational' ? fmtPct(c.availability) + ' disponible' : s.label}</span>
+        </div>
+        ${c.description ? `<div class="comp-desc">${esc(c.description)}</div>` : ''}
+        <div class="bars" role="group" aria-label="Disponibilidad diaria de ${esc(c.name)}">${bars}</div>
+        <div class="bars-foot"><span>hace ${n} días</span><span>${c.state === 'operational' ? '' : fmtPct(c.availability) + ' disponible · '}Hoy</span></div>
+      </div>`;
+    }).join('');
+
+    $('incidents').innerHTML = data.incidents.length
+      ? data.incidents.map((i) => `<div class="inc">
+          <div class="inc-title">${i.resolvedAt ? 'Interrupción resuelta' : 'Interrupción en curso'}: ${esc(i.components.join(', '))}</div>
+          <div class="inc-meta">${esc(fmtDateTime(i.startedAt))} · duración ${esc(fmtDuration(i.durationSeconds))}</div>
+        </div>`).join('')
+      : '<div class="empty">No hubo incidentes en los últimos 30 días.</div>';
+  }
+
+  // Tooltip de cada barra (ratón, foco con teclado y toque).
+  const tip = $('tip');
+  function showTip(el) {
+    if (!last || !el.classList.contains('bar')) return;
+    const h = last.components[+el.dataset.c].history[+el.dataset.h];
+    tip.innerHTML = `<strong>${esc(fmtDay(h.day))}</strong><br>${h.availability === null ? 'Sin datos de monitoreo' : fmtPct(h.availability) + ' disponible'}`;
+    const r = el.getBoundingClientRect();
+    tip.hidden = false;
+    const half = tip.offsetWidth / 2;
+    tip.style.left = Math.min(window.innerWidth - half - 8, Math.max(half + 8, r.left + r.width / 2)) + 'px';
+    tip.style.top = r.top + 'px';
+  }
+  const hideTip = () => (tip.hidden = true);
+  document.addEventListener('mouseover', (e) => (e.target.classList?.contains('bar') ? showTip(e.target) : hideTip()));
+  document.addEventListener('focusin', (e) => showTip(e.target));
+  document.addEventListener('focusout', hideTip);
+  document.addEventListener('click', (e) => (e.target.classList?.contains('bar') ? showTip(e.target) : hideTip()));
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  let lastWidthMode = visibleDays();
+  window.addEventListener('resize', () => {
+    if (visibleDays() !== lastWidthMode && last) { lastWidthMode = visibleDays(); render(last); }
+  });
+
+  async function load() {
+    try {
+      const res = await fetch('status.json?t=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status);
+      render(await res.json());
+    } catch {
+      if (!last) {
+        $('headline').textContent = 'No pudimos cargar el estado';
+        $('updated').textContent = 'Intenta recargar la página en unos minutos.';
+        $('components').innerHTML = '<div class="empty">Sin datos</div>';
+        $('incidents').innerHTML = '<div class="empty">Sin datos</div>';
+      }
+    }
+  }
+  load();
+  setInterval(load, REFRESH_MS);
+})();
+</script>
+</body>
+</html>
