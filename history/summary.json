@@ -88,5 +88,25 @@
     "timeMonth": 56,
     "timeYear": 56,
     "dailyMinutesDown": {}
+  },
+  {
+    "name": "Prueba de alerta (temporal)",
+    "url": "https://middle-end.carminavillegas.com/health",
+    "icon": "https://icons.duckduckgo.com/ip3/middle-end.carminavillegas.com.ico",
+    "slug": "prueba-alerta",
+    "status": "down",
+    "uptime": "61.03%",
+    "uptimeDay": "61.03%",
+    "uptimeWeek": "61.03%",
+    "uptimeMonth": "61.03%",
+    "uptimeYear": "61.03%",
+    "time": 225,
+    "timeDay": 225,
+    "timeWeek": 225,
+    "timeMonth": 225,
+    "timeYear": 225,
+    "dailyMinutesDown": {
+      "2026-11-09": 0
+    }
   }
 ]
