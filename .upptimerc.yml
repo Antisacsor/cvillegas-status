@@ -1,0 +1,131 @@
+# Monitoreo y página de estado de Carmiña Villegas con Upptime (GitHub Actions + Issues + Pages).
+# Documentación: https://upptime.js.org/docs/configuration
+owner: Antisacsor
+repo: cvillegas-status
+user-agent: cvillegas-status
+
+# Cada caída abre un issue asignado a esta persona: GitHub le avisa por email.
+assignees:
+  - pepe0062
+
+# Por defecto Upptime borra los issues de caídas de menos de 15 min; así quedan en el historial.
+skipDeleteIssues: true
+skipTopicsUpdate: true
+skipDescriptionUpdate: true
+
+sites:
+  - name: Tienda online
+    slug: tienda
+    url: https://www.carminavillegas.com/
+    # Si VTEX sirve una página de error con 200, no traería el carrito del encabezado.
+    __dangerous__body_down_if_text_missing: carrito
+    maxResponseTime: 10000
+
+  - name: Formularios (API)
+    slug: api-formularios
+    url: https://middle-end.carminavillegas.com/health
+    __dangerous__body_down_if_text_missing: '"status":"ok"'
+    maxResponseTime: 5000
+
+  - name: Lista de deseos (API)
+    slug: api-wishlist
+    url: https://middle-end.www.carminavillegas.com/health
+    __dangerous__body_down_if_text_missing: '"status":"ok"'
+    maxResponseTime: 5000
+
+  # /health/deep responde 503 si falla cualquier dependencia; se acepta 503 para que cada
+  # monitor caiga solo por su propia comprobación (texto del JSON).
+  - name: Datos de clientes (VTEX)
+    slug: datos
+    url: https://middle-end.carminavillegas.com/health/deep
+    expectedStatusCodes: [200, 503]
+    __dangerous__body_down_if_text_missing: '"datos":"ok"'
+    maxResponseTime: 10000
+
+  - name: Verificación anti-bots (captcha)
+    slug: captcha
+    url: https://middle-end.carminavillegas.com/health/deep
+    expectedStatusCodes: [200, 503]
+    __dangerous__body_down_if_text_missing: '"captcha":"ok"'
+    maxResponseTime: 10000
+
+status-website:
+  # Mientras no exista el DNS de status.carminavillegas.com se publica en
+  # https://antisacsor.github.io/cvillegas-status/ . Para el dominio propio: quitar baseUrl y
+  # descomentar cname.
+  # cname: status.carminavillegas.com
+  baseUrl: /cvillegas-status
+  name: Carmiña Villegas
+  logoUrl: https://cvillegas.vteximg.com.br/arquivos/favicon-96x96.png
+  favicon: https://cvillegas.vteximg.com.br/arquivos/favicon-96x96.png
+  theme: light
+  introTitle: "Estado de **Carmiña Villegas**"
+  introMessage: Revisamos la tienda online y sus servicios cada 5 minutos. Si algo falla, aquí lo verás.
+  navbar:
+    - title: Estado
+      href: /
+    - title: Ir a la tienda
+      href: https://www.carminavillegas.com
+
+i18n:
+  locale: es-CO
+  activeIncidents: Incidentes activos
+  allSystemsOperational: Todos los servicios están en línea
+  incidentReport: "Ver el incidente #$NUMBER →"
+  activeIncidentSummary: Abierto el $DATE · $POSTS actualizaciones
+  incidentTitle: Incidente $NUMBER
+  incidentDetails: Detalles del incidente
+  incidentFixed: Resuelto
+  incidentOngoing: En curso
+  incidentOpenedAt: Abierto el
+  incidentClosedAt: Cerrado el
+  incidentViewOnGitHub: Ver y suscribirse en GitHub
+  incidentCommentSummary: Publicado el $DATE por $AUTHOR
+  incidentBack: "← Volver a todos los incidentes"
+  pastIncidents: Incidentes anteriores
+  pastIncidentsResolved: Resuelto en $MINUTES minutos · $POSTS actualizaciones
+  liveStatus: Estado en vivo
+  overallUptime: "Disponibilidad: $UPTIME"
+  overallUptimeTitle: Disponibilidad
+  averageResponseTime: "Tiempo de respuesta promedio: $TIMEms"
+  averageResponseTimeTitle: Respuesta promedio
+  sevelDayResponseTime: Tiempo de respuesta (7 días)
+  responseTimeMs: Tiempo de respuesta (ms)
+  up: En línea
+  down: Caído
+  degraded: Lento
+  ms: ms
+  loading: Cargando
+  navGitHub: GitHub
+  footer: "Página de estado [de código abierto]($REPO) con [Upptime](https://upptime.js.org)"
+  rateLimitExceededTitle: Demasiadas consultas
+  rateLimitExceededIntro: Se alcanzó el límite de consultas por hora a GitHub desde tu conexión. Vuelve a intentarlo en un rato.
+  rateLimitExceededWhatDoesErrorMean: "¿Qué significa?"
+  rateLimitExceededErrorMeaning: Esta página lee los datos desde GitHub, que permite 60 consultas por hora por conexión.
+  rateLimitExceededErrorHowCanFix: "¿Cómo lo soluciono?"
+  rateLimitExceededErrorFix: Espera una hora, o agrega un token personal de GitHub para tener 5.000 consultas por hora.
+  rateLimitExceededGeneratePAT: Cómo crear un token personal
+  rateLimitExceededHasSet: Tienes un token personal configurado.
+  rateLimitExceededRemoveToken: Quitar token
+  rateLimitExceededGitHubPAT: Token personal de GitHub
+  rateLimitExceededCopyPastePAT: Copia y pega tu token
+  rateLimitExceededSaveToken: Guardar token
+  errorTitle: Ocurrió un error
+  errorIntro: No pudimos obtener el estado más reciente.
+  errorText: Intenta de nuevo en unos momentos.
+  errorHome: Ir al inicio
+  pastScheduledMaintenance: Mantenimientos anteriores
+  scheduledMaintenance: Mantenimiento programado
+  scheduledMaintenanceSummaryStarted: Empezó el $DATE · $DURATION minutos
+  scheduledMaintenanceSummaryStarts: Empieza el $DATE · $DURATION minutos
+  startedAt: Empezó
+  startsAt: Empieza
+  duration: Duración
+  durationMin: $DURATION minutos
+  incidentCompleted: Completado
+  incidentScheduled: Programado
+  duration24H: 24 h
+  duration7D: 7 d
+  duration30D: 30 d
+  duration1Y: 1 año
+  durationAll: todo

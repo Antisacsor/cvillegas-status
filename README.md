@@ -1,43 +1,35 @@
 # Estado de Carmiña Villegas
 
-Página de estado pública (estilo Better Stack) alojada gratis en GitHub Pages. Los datos salen
-de los monitores del grupo **Carmiña Villegas** en Better Stack Uptime (plan gratuito, que solo
-permite 1 página de estado propia y ya la usa Hojea).
+<!--start: description-->
+Monitoreo y página de estado de la tienda online de Carmiña Villegas y su middle-end, con
+[Upptime](https://upptime.js.org): GitHub Actions revisa cada servicio cada 5 minutos, cada caída
+abre un issue (GitHub avisa por email a quien esté asignado) y la página se publica en GitHub
+Pages. Todo gratis.
+<!--end: description-->
 
+## [📈 Estado en vivo](https://antisacsor.github.io/cvillegas-status/): <!--live status--> **🟩 Todos los servicios en línea**
+
+<!--start: status pages-->
+<!--end: status pages-->
+
+<!--start: docs-->
 ## Cómo funciona
 
-- `.github/workflows/status.yml` corre cada 5 min (GitHub lo atrasa a veces hasta ~15 min).
-- `scripts/build.mjs` lee la API de Better Stack con un token **de solo lectura** y genera
-  `dist/index.html` + `dist/status.json`. No hace commits: publica con GitHub Pages.
-- El histórico de 90 días se reutiliza del `status.json` publicado; en cada ejecución solo se
-  piden hoy y ayer (~17 llamadas a la API).
-- Si la API falla, no se publica nada y la página avisa que los datos están desactualizados
-  (más de 20 min).
-- El JSON público no incluye URLs, causas técnicas ni nombres internos: solo componentes,
-  porcentajes e incidentes (inicio, fin y duración).
+- **Configuración:** solo `.upptimerc.yml`. Los workflows de `.github/workflows` son de la
+  plantilla de Upptime; no se editan a mano.
+- **Chequeos:** `Uptime CI` corre cada 5 min (GitHub puede atrasarlo). Cada servicio falla si no
+  responde o si la respuesta no trae el texto esperado (`"status":"ok"`, `"datos":"ok"`,
+  `"captcha":"ok"`, `carrito`).
+- **Alertas:** cada caída abre un issue asignado a `pepe0062` y se cierra solo al recuperarse.
+  Para recibir el email: GitHub → Settings → Notifications → "Issues" y "Actions" con email activo,
+  y *Watch* en este repo.
+- **Página:** `Static Site CI` la publica en la rama `gh-pages`. Lee los datos en vivo desde la
+  API de GitHub.
+- **Sin token personal:** todo usa el `GITHUB_TOKEN` del workflow. Por eso `Setup CI` y
+  `Update Template CI` están desactivados (necesitan permiso para reescribir workflows). Para
+  actualizar la plantilla de Upptime, hacerlo a mano copiando `.github/` desde
+  [upptime/upptime](https://github.com/upptime/upptime).
 
-## Componentes (`config.json`)
-
-| Componente | Monitores de Better Stack |
-|---|---|
-| Tienda online | CV · Tienda online |
-| Formularios | CV · API formularios, CV · Datos (VTEX), CV · Captcha |
-| Lista de deseos | CV · API wishlist, CV · Datos (VTEX) |
-
-El estado del componente es el del peor de sus monitores; los pausados no cuentan.
-"CV · Dominio sin www" queda fuera a propósito (es interno).
-
-## Configuración del repo
-
-- Secreto `BETTERSTACK_TOKEN`: token del equipo, tipo **Read only** (Better Stack → Settings →
-  API tokens → Incidents API).
-- Variables `PUBLIC_URL` (p. ej. `https://status.carminavillegas.com`) y, si hay dominio
-  propio, `CUSTOM_DOMAIN` (`status.carminavillegas.com`).
-- Settings → Pages → Source: **GitHub Actions**.
-
-## Desarrollo
-
-```bash
-node --test 'test/*.test.mjs'
-BETTERSTACK_TOKEN=... node scripts/build.mjs && python3 -m http.server -d dist 8765
-```
+Monitoreo del middle-end (qué mide `/health/deep`, runbooks): `docs/OBSERVABILITY.md` del repo
+`villegas_middleend`.
+<!--end: docs-->
