@@ -22,19 +22,19 @@
     "url": "https://middle-end.carminavillegas.com/health",
     "icon": "https://icons.duckduckgo.com/ip3/middle-end.carminavillegas.com.ico",
     "slug": "api-formularios",
-    "status": "down",
-    "uptime": "99.83%",
-    "uptimeDay": "98.98%",
-    "uptimeWeek": "99.83%",
-    "uptimeMonth": "99.83%",
-    "uptimeYear": "99.83%",
-    "time": 236,
-    "timeDay": 162,
-    "timeWeek": 236,
-    "timeMonth": 236,
-    "timeYear": 236,
+    "status": "up",
+    "uptime": "99.05%",
+    "uptimeDay": "94.32%",
+    "uptimeWeek": "99.05%",
+    "uptimeMonth": "99.05%",
+    "uptimeYear": "99.05%",
+    "time": 228,
+    "timeDay": 165,
+    "timeWeek": 228,
+    "timeMonth": 228,
+    "timeYear": 228,
     "dailyMinutesDown": {
-      "2026-11-15": 15
+      "2026-11-15": 82
     }
   },
   {
@@ -42,19 +42,19 @@
     "url": "https://middle-end.www.carminavillegas.com/health",
     "icon": "https://icons.duckduckgo.com/ip3/middle-end.www.carminavillegas.com.ico",
     "slug": "api-wishlist",
-    "status": "down",
-    "uptime": "99.88%",
-    "uptimeDay": "99.31%",
-    "uptimeWeek": "99.88%",
-    "uptimeMonth": "99.88%",
-    "uptimeYear": "99.88%",
-    "time": 248,
-    "timeDay": 181,
-    "timeWeek": 248,
-    "timeMonth": 248,
-    "timeYear": 248,
+    "status": "up",
+    "uptime": "99.11%",
+    "uptimeDay": "94.65%",
+    "uptimeWeek": "99.11%",
+    "uptimeMonth": "99.11%",
+    "uptimeYear": "99.11%",
+    "time": 238,
+    "timeDay": 171,
+    "timeWeek": 238,
+    "timeMonth": 238,
+    "timeYear": 238,
     "dailyMinutesDown": {
-      "2026-11-15": 10
+      "2026-11-15": 77
     }
   },
   {
@@ -62,19 +62,19 @@
     "url": "https://middle-end.carminavillegas.com/health/deep",
     "icon": "https://icons.duckduckgo.com/ip3/middle-end.carminavillegas.com.ico",
     "slug": "datos",
-    "status": "down",
-    "uptime": "99.94%",
-    "uptimeDay": "99.65%",
-    "uptimeWeek": "99.94%",
-    "uptimeMonth": "99.94%",
-    "uptimeYear": "99.94%",
-    "time": 524,
-    "timeDay": 899,
-    "timeWeek": 524,
-    "timeMonth": 524,
-    "timeYear": 524,
+    "status": "up",
+    "uptime": "99.16%",
+    "uptimeDay": "94.99%",
+    "uptimeWeek": "99.16%",
+    "uptimeMonth": "99.16%",
+    "uptimeYear": "99.16%",
+    "time": 496,
+    "timeDay": 586,
+    "timeWeek": 496,
+    "timeMonth": 496,
+    "timeYear": 496,
     "dailyMinutesDown": {
-      "2026-11-15": 5
+      "2026-11-15": 72
     }
   },
   {
@@ -82,19 +82,19 @@
     "url": "https://middle-end.carminavillegas.com/health/deep",
     "icon": "https://icons.duckduckgo.com/ip3/middle-end.carminavillegas.com.ico",
     "slug": "captcha",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
-    "time": 211,
-    "timeDay": 162,
-    "timeWeek": 211,
-    "timeMonth": 211,
-    "timeYear": 211,
+    "status": "up",
+    "uptime": "99.22%",
+    "uptimeDay": "95.32%",
+    "uptimeWeek": "99.22%",
+    "uptimeMonth": "99.22%",
+    "uptimeYear": "99.22%",
+    "time": 207,
+    "timeDay": 171,
+    "timeWeek": 207,
+    "timeMonth": 207,
+    "timeYear": 207,
     "dailyMinutesDown": {
-      "2026-11-15": 0
+      "2026-11-15": 67
     }
   }
 ]
